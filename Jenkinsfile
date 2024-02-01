@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'krishdutta1177/maven-docker-agent:v5'
-            args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // Use with caution, consider security implications
+            args '--user root
         }
     }
 

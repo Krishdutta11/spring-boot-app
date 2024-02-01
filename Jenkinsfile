@@ -1,14 +1,10 @@
 pipeline {
-    parameters {
-        string(name: 'BUILD_NUMBER', defaultValue: '', description: 'Build number for versioning')
+  agent {
+    docker {
+      image 'krishdutta1177/maven-krish-docker-agent:v1'
+      args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
     }
-
-    agent {
-        docker {
-            image 'krishdutta1177/maven-krish-docker-agent:v1'
-            args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
+  }
 
     stages {
         stage('Clone repository') {

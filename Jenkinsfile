@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'abhishekf5/maven-abhishek-docker-agent:v1'
+            image 'krishdutta1177/maven-krish-docker-agent:v2'
             args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // Use with caution, consider security implications
         }
     }
@@ -9,13 +9,11 @@ pipeline {
     stages {
         stage('Clone repository') {
             steps {
-                deleteDir() // Clean up workspace
                 checkout scm
             }
         }
         stage('Build and Test') {
             steps {
-                deleteDir() // Clean up workspace
                 sh 'ls -ltr'
                 sh 'mvn clean package'
             }
@@ -25,7 +23,6 @@ pipeline {
                 SONAR_URL = "http://3.83.87.3:9000"
             }
             steps {
-                deleteDir() // Clean up workspace
                 withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
                     sh 'mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
                 }

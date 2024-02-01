@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'krishdutta1177/maven-docker-agent:v5'
-            args '--user root
+            args '--user root'
         }
     }
 

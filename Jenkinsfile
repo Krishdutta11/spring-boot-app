@@ -35,12 +35,13 @@ pipeline {
   environment {
     DOCKER_IMAGE = "krishdutta1177/ultimate-cicd:${BUILD_NUMBER}"
     REGISTRY_CREDENTIALS = credentials('docker-cred')
+    DOCKER_PATH = '/usr/bin/docker'  // Use the correct path to the Docker executable
   }
   steps {
     script {
       sh 'echo $PATH'
       sh 'echo "Build Number: ${BUILD_NUMBER}"'
-      sh 'docker build -t ${DOCKER_IMAGE} .'
+      sh "${DOCKER_PATH} build -t ${DOCKER_IMAGE} ."
       def dockerImage = docker.image("${DOCKER_IMAGE}")
       docker.withRegistry('https://index.docker.io/v1/', "docker-cred") {
         dockerImage.push()

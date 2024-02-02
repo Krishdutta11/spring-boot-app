@@ -1,31 +1,32 @@
 pipeline {
-    agent {
-        docker {
-            image 'krishdutta1177/maven-docker-agent:v8'
-            args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
-        }
-    }
+    agent any
 
     stages {
+        stage('Debug Docker Commands') {
+            steps {
+                sh 'docker --version'
+                sh 'docker images'
+                sh 'docker pull krishdutta1177/maven-docker-agent:v8'
+                sh 'docker inspect krishdutta1177/maven-docker-agent:v8'
+            }
+        }
+
         stage('Clone repository') {
             steps {
                 checkout scm
             }
         }
+
         stage('Build and Test') {
             steps {
                 sh 'ls -ltr'
-
-                // Create a dummy target directory if not present
-                sh 'mkdir -p target'
-
-                // Run Maven build
                 sh 'mvn clean package'
             }
         }
+
         stage('Static Code Analysis') {
             environment {
-                SONAR_URL = "http://44.211.156.110:9000"
+                SONAR_URL = "http://3.89.8.57:9000"
             }
             steps {
                 withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
@@ -33,6 +34,7 @@ pipeline {
                 }
             }
         }
+
         stage('Build and Push Docker Image') {
             environment {
                 DOCKER_IMAGE = "krishdutta1177/ultimate-cicd:${BUILD_NUMBER}"
@@ -48,6 +50,7 @@ pipeline {
                 }
             }
         }
+
         stage('Trigger ManifestUpdate') {
             steps {
                 script {

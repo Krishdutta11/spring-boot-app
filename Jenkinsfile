@@ -1,15 +1,11 @@
 pipeline {
-    agent any
-
-    stages {
-        stage('Debug Docker Commands') {
-            steps {
-                sh 'docker --version'
-                sh 'docker images'
-                sh 'docker pull krishdutta1177/maven-docker-agent:v8'
-                sh 'docker inspect krishdutta1177/maven-docker-agent:v8'
-            }
+    agent {
+        docker { 
+            image 'maven:3.8.4-openjdk-11'
+            // Mount the Maven local repository to speed up builds
+            args '-v $HOME/.m2:/root/.m2'
         }
+    
 
         stage('Clone repository') {
             steps {

@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'abhishekf5/maven-abhishek-docker-agent:v1'
+            image 'krishdutta1177/maven-abhishek-docker-agent:v8'
             args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
         }
     }
@@ -15,6 +15,11 @@ pipeline {
         stage('Build and Test') {
             steps {
                 sh 'ls -ltr'
+
+                // Create a dummy target directory if not present
+                sh 'mkdir -p target'
+
+                // Run Maven build
                 sh 'mvn clean package'
             }
         }

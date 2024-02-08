@@ -16,8 +16,7 @@ pipeline {
     stage('Build and Test') {
       steps {
          sh 'ls -ltr'  // List files in the workspace
-                sh 'ls -ltr /app'  // List files in the project directory
-                sh 'mvn clean package'
+         sh 'mvn clean package'
       }
     }
 

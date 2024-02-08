@@ -5,6 +5,15 @@ pipeline {
       args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
     }
   }
+     stages {
+        stage('Pre-Build Checks') {
+            steps {
+                script {
+                    echo "Checking if Maven is installed..."
+                    sh 'mvn --version' // Execute mvn --version to check if Maven is installed
+                }
+            }
+        }
 
     stages {
         stage('Clone repository') {

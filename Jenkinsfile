@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'krishdutta1177/maven-docker-image:v8'
+      image 'krishdutta1177/maven-docker-image:v10'
       args '--user root -v /var/run/docker.sock:/var/run/docker.sock -p 8081:8081' // mount Docker socket and specify port mapping
     }
   }

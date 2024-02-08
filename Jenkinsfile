@@ -18,7 +18,6 @@ pipeline {
             steps {
                 echo "Listing files in the workspace..."
                 sh 'ls -ltr'  // List files in the workspace
-                echo "Building and testing..."
                 sh 'mvn clean package'
             }
         }

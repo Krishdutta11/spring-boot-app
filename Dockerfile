@@ -7,6 +7,6 @@ RUN mvn install
 # Final stage
 FROM openjdk:11-jre-slim
 WORKDIR /app
-COPY --from=build /app/target/spring-boot-web.jar /app
-EXPOSE 1001
-ENTRYPOINT ["java", "-jar", "spring-boot-web.jar"]
+COPY --from=build /app/target/spring-boot-web.jar /app/spring-boot-web.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "/app/spring-boot-web.jar"]

@@ -1,11 +1,12 @@
 pipeline {
-  agent {
-    docker {
-      image 'krishdutta1177/maven-docker-image:v12'
-      args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
+    agent {
+        docker {
+            image 'krishdutta1177/maven-docker-image:v12'
+            args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
+        }
     }
-  }
-     stages {
+
+    stages {
         stage('Pre-Build Checks') {
             steps {
                 script {
@@ -15,7 +16,6 @@ pipeline {
             }
         }
 
-    stages {
         stage('Clone repository') {
             steps {
                 echo "Cloning repository..."
@@ -53,7 +53,7 @@ pipeline {
                 script {
                     echo "Building Docker image..."
                     sh 'echo $PATH'
-                    sh 'echo "Build Number: ${BUILD_NUMBER}"'
+                    echo "Build Number: ${BUILD_NUMBER}"
                     sh "${DOCKER_PATH} build -t ${DOCKER_IMAGE} ."
                     def dockerImage = docker.image("${DOCKER_IMAGE}")
                     echo "Pushing Docker image..."

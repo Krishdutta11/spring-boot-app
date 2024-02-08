@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'krishdutta1177/maven-docker-agent:v20'
+      image 'krishdutta1177/maven-docker-image:v1'
       args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
     }
   }
@@ -23,7 +23,7 @@ pipeline {
 
     stage('Static Code Analysis') {
       environment {
-        SONAR_URL = "http://34.235.114.52:9000"
+        SONAR_URL = "http://3.84.237.5:9000"
       }
       steps {
         withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {

@@ -1,10 +1,10 @@
 pipeline {
-  agent {
-    docker {
-      image 'krishdutta1177/maven-docker-image:v10'
-      args '--user root -v /var/run/docker.sock:/var/run/docker.sock -p 1001:1001' // mount Docker socket and specify port mapping
+    agent {
+        docker {
+            image 'krishdutta1177/maven-docker-image:v10'
+            args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
+        }
     }
-  }
 
   stages {
     stage('Clone repository') {

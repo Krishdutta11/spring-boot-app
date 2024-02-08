@@ -1,9 +1,7 @@
 FROM maven:3.8.4-jdk-11-slim AS build
 WORKDIR /app
-COPY pom.xml .
-RUN mvn dependency:go-offline
-COPY src/ /app/src/
-RUN mvn package -DskipTests
+COPY . .
+RUN mvn install
 
 FROM openjdk:11-jre-slim
 WORKDIR /app

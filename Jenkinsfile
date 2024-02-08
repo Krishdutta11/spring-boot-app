@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'krishdutta1177/maven-docker-image:v10'
-            args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
+            args '--user root -v /var/run/docker.sock:/var/run/docker.sock --privileged'
         }
     }
 

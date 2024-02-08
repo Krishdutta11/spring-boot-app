@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'krishdutta1177/maven-docker-image:v3'
+      image 'krishdutta1177/maven-docker-image:v4'
       args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
     }
   }

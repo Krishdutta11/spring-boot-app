@@ -1,10 +1,10 @@
 pipeline {
-    agent {
-        docker {
-            image 'krishdutta1177/maven-docker-image:v10'
-            args '--user root -v /var/run/docker.sock:/var/run/docker.sock --privileged'
-        }
+  agent {
+    docker {
+      image 'abhishekf5/maven-abhishek-docker-agent:v1'
+      args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
     }
+  }
 
     stages {
         stage('Clone repository') {

@@ -1,11 +1,11 @@
 # Build stage
-FROM maven:3.8.4-jdk-11-slim AS build
+FROM maven as build
 WORKDIR /app
 COPY . .
 RUN mvn install
 
 # Final stage
-FROM openjdk:11-jre-slim
+FROM openjdk:11.0.10-jre
 WORKDIR /app
 COPY --from=build /app/target/spring-boot-web.jar /app/spring-boot-web.jar
 EXPOSE 8080
